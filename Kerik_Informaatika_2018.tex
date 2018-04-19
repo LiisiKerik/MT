@@ -26,9 +26,14 @@
   \renewcommand\refname{Viidatud kirjandus}
 }
 \bibliographystyle{plain}
+\definecolor{ereroheline}{RGB}{0,255,0}
 \definecolor{hall}{RGB}{128,128,128}
 \definecolor{helehall}{RGB}{192,192,192}
+\definecolor{must}{RGB}{0,0,0}
 \definecolor{roheline}{RGB}{0,128,0}
+\lstset{
+  basicstyle = \color{helehall}\ttfamily,
+  mathescape}
 \newcommand\peatykk[1]{
   \clearpage
   \section{#1}}
@@ -64,11 +69,9 @@
   \vspace{2mm}
 
   \begin{flushright}
-    {
-      \setlength{\extrarowheight}{5pt}
-      \begin{tabular}{rl} 
-        Juhendaja: & Härmel Nestra, PhD
-      \end{tabular}}
+    \begin{tabular}{rl} 
+      Juhendaja: & Härmel Nestra, PhD
+    \end{tabular}
   \end{flushright}
   \vfill
   \centerline{Tartu 2018}
@@ -103,7 +106,7 @@ comparison to what was thought to be the case previously, or how the main result
 \vspace*{1ex}
 
 \noindent
-\textbf{Võtmesõnad:} funktsionaalprogrammeerimine, liigid, edutamine, tüübisüsteemid
+\textbf{Võtmesõnad:} andmetüübid ja struktuurid, funktsionaalprogrammeerimine, liigid, polümorfism, edutamine, tüübisüsteemid
 
 \vspace*{1ex}
 
@@ -129,7 +132,7 @@ From a theoretical viewpoint, the result is only a small advancement in rigorous
 \vspace*{1ex}
 
 \noindent
-\textbf{Keywords:} functional programming, kinds, promotion, type systems
+\textbf{Keywords:} data types and structures, functional programming, kinds, polymorphism, promotion, type systems
 
 \vspace*{1ex}
 
@@ -143,31 +146,43 @@ From a theoretical viewpoint, the result is only a small advancement in rigorous
   \peatykktarn{Tänusõnad}
     
   \peatykk{Sissejuhatus}
-    \markus{What is it in simple terms (title)?} Käesoleva töö eesmärgiks oli arendada funktsionaalse programmeerimiskeele tüübisüsteemi.
+    \markus{What is it in simple terms (title)?} Käesoleva töö eesmärgiks oli arendada funktsionaalse programmeerimiskeele tüübisüsteemi. \markus{Seletada mis on tüübiturvalisus.}
 
     \markus{Why should anyone care?}
 
-    \markus{What was my contribution?} Käesoleva töö tulemuseks on funktsionaalne programmeerimiskeel nimega Awful. Awful on puhasfunktsionaalne interpreteeritud agar keel. Üks keele oluline erinevus teistest funktsionaalsetest programmeerimiskeeltest on viis, kuidas on teostatud andmestruktuurid. Kui Haskellis on olemas algebralised andmetüübid ja üldistatud algebralised andmetüübid, siis Awful asendab
+    \markus{What was my contribution?} Käesoleva töö tulemuseks on funktsionaalne programmeerimiskeel nimega Awful. Awful on puhas funktsionaalne interpreteeritud agar keel. Üks keele oluline erinevus teistest funktsionaalsetest programmeerimiskeeltest on viis, kuidas on teostatud andmestruktuurid. Kui Haskellis on olemas algebralised andmetüübid ja üldistatud algebralised andmetüübid, siis Awful asendab \markus{Märkida ära enda originaalne idee: hargnevad andmetüübid.}
 
     \markus{What you are doing in each section (a sentence or two per section)}
 
     Tip: if it's hard for you to start writing, then try to split it to smaller parts, e.g. if the title is ``Type Inference for a Cryptographic Protocol Prover Tool'' then the ``What is it'' can be divided into ``what is type inference'', ``what is cryptographic protocol'' and ``what is the prover tool''. These three can also be split to smaller parts etc.
 
     \markus{1) Motivatsioon 2) Mis sai valmis; tulemused 3) Mis mitte}
-  \peatykk{Tüübiklassid}
-    \markus{sissejuhatav lõik: ad hoc polümorfism, mis on, milleks vajalik. paar näidet? lühidalt mainida teiste keelte ad hoc polümorfismi tegemise viise?}
+  \peatykk{Tüübiklassid ja üldistatud algebralised andmetüübid}
+    Selles peatükis meenutame lühidalt
+    \subsection{Tüübiklassid}
+      \markus{sissejuhatav lõik: ad hoc polümorfism, mis on, milleks vajalik. paar näidet? lühidalt mainida teiste keelte ad hoc polümorfismi tegemise viise?}
 
-    \markus{mainida, et ad hoc polümorfism on eriti kasulik kui tahta kasutada operaatoreid, nt + ja *}
-  \peatykk{Üldistatud algebralised andmetüübid}
-    \markus{TODO: kusagil seletada, mis on hargnevate andmetüüpide piirangud võrreldes GADT-ga. Mis kasulikke asju nende abil teha ei saa; näited}
+      \markus{mainida, et ad hoc polümorfism on eriti kasulik kui tahta kasutada operaatoreid, nt + ja *}
+
+      \markus{näiteid tüübiklasside kasutusest}
+
+      \markus{mis kitsendused on tüübiklassidel ja esindajatel standard-Haskellis (vt 2010 std)? laiendustega Haskellis? Awful-is?}
+    \subsection{Üldistatud algebralised andmetüübid}
+      \markus{TODO: kusagil seletada, mis on hargnevate andmetüüpide piirangud võrreldes GADT-ga. Mis kasulikke asju nende abil teha ei saa; näited.}
+
+      \markus{Alustuseks näiteid sellest, kuidas saab tavalisi andmetüüpe (nt nat ja list) GADT süntaksiga kirja panna?}
   \peatykk{Tüübitaseme andmed ja edutamine}
-    \markus{TODO: siin peatükis on vaja viidata} Selles peatükis refereerime, mis on edutamine ning kuidas see muudab tüübisüsteemi väljendusrikkamaks ja aitab kirjutada tüübiturvalisemat koodi. Kuna autori loodud keelt tutvustatakse alles peatükkides~\ref{syntaks} ja~\ref{manual}, ja kuna Haskell on esimene keel mille tüübisüsteem sisaldab edutamist~\cite{Giv}, on antud peatükis edutamise põhimõtete selgitamiseks kasutatud Haskelli süntaksit.
+    Selles peatükis refereerime, mis on edutamine ning kuidas see muudab tüübisüsteemi väljendusrikkamaks ja aitab kirjutada tüübiturvalisemat koodi. Kuna käesoleva töö autori loodud keelt tutvustatakse alles peatükkides~\ref{syntaks} ja~\ref{manual}, ning kuna Haskell on esimene keel mille tüübisüsteem sisaldab edutamist~\cite{Giv}, on antud peatükis edutamise põhimõtete selgitamiseks kasutatud Haskelli süntaksit.
 
-    Sageli on tüübiturvalisema koodi kirjutamiseks kasulik, kui saab tüüpide tasemel väärtusi kasutada. Näiteks võimaldavad tüübitaseme naturaalarvud luua vektoreid, mille pikkus, erinevalt listide omast, on teada. See võimaldab kirjutada vektorite liitmise või skalaarkorrutise funktsiooni tüübiturvaliselt, ja lisaks kannavad tüübid kasulikku teavet andmete kohta. Näiteks saab funktsiooni tüüpi vaadates kohe teada, et kaks vektorit peavad olema sama pikad, või et vektor ei tohi olla pikkusega null.
+    Sageli on tüübiturvalisema koodi kirjutamiseks kasulik, kui saab tüüpide tasemel väärtusi kasutada. Näiteks võimaldavad tüübitaseme naturaalarvud luua vektoreid, mille pikkus, erinevalt listide omast, on juba tüübikontrolli ajal teada. Vektorite pikkustega seotud vead tulevad sellisel juhul välja juba tüübikontrollis, enne interpreteerimist või kompileerimist.
 
-    Tüübitaseme andmed aitavad kaasa tüübiturvalisusele, vähendavad korduva koodi hulka ning lisaks aitavad kaasa sellele, et tüübisüsteem oleks väljendusrikkam ja tüübid dokumenteeriks paremini funktsioonide sisu.
-    \subsection{Tüübitaseme andmed}
-      Mõnedes keeltes, näiteks Agda, Coq ja Idris, kasutatakse tüübitaseme andmete saavutamiseks sõltuvaid tüüpe. Sõltuvatest tüüpidest anname lühikese ülevaate jaotises~\ref{soltuvad}. Keeles, kus sellist võimalust ei ole, saab tüübitaseme andmeid kirjutada otse, näiteks naturaalarvud näeksid Haskelli algebralisi andmetüüpe kasutades välja sellised:
+    See võimaldab kirjutada näiteks vektorite liitmise või viimase elemendi leidmise funktsiooni tüübiturvaliselt. Juhul, kui kirjutada neid funktsioone listide abil, ei ole kuidagi tagatud, et programmeerija ei kutsu vektorite liitmise funktsiooni välja kahe erineva pikkusega listi peal või ei kutsu viimase elemendi leidmise funktsiooni tühja listi peal.
+
+    Lisaks kannavad tüübid kasulikku teavet funktsioonide sisendite ja väljundite kohta, ning mida väljendusrikkam tüübisüsteem on seda detailsemalt saavad funktsioonide tüübid funktsioonide sisu kirjeldada. Näiteks juhul kui keeles on võimalik kasutada tüübitaseme naturaalarve, saab vektorite liitmise funktsiooni tüüpi vaadates kohe teada, et kaks vektorit peavad olema sama pikad. Vaadates vektori viimase elemendi leidmise funktsiooni tüüpi, on kohe aru saada, et vektor ei tohi olla pikkusega null.
+
+    Tüübitaseme andmed parandavad tüübiturvalisust, vähendavad korduva koodi hulka ning lisaks aitavad kaasa sellele, et tüübisüsteem oleks väljendusrikkam ja tüübid dokumenteeriks paremini funktsioonide sisu.
+    \subsection{Tüübitaseme andmed}\label{tyybitasemeandmed}
+      Mõnedes keeltes, näiteks Idris~\cite{The_Idr}, saab tüübitaseme andmete saavutamiseks kasutada sõltuvaid tüüpe. Sõltuvatest tüüpidest anname lühikese ülevaate jaotises~\ref{soltuvad}. Keeles, kus sõltuvaid tüüpe ei ole, on tüübitaseme andmeid võimalik kirjutada algebraliste andmetüüpide abil~\cite{Giv}. Tüübitaseme naturaalarvud näeksid Haskelli algebralisi andmetüüpe kasutades välja sellised:
 
       \begin{verbatim}data Zr
 data Next n\end{verbatim}
@@ -177,176 +192,169 @@ data Next n\end{verbatim}
       \begin{verbatim}data Empty_List
 data Construct_List t l\end{verbatim}
 
-      Toome mõned lihtsad näited sellest, milleks saab tüübitaseme andmeid kasutada. Üldistatud algebraliste andmetüüpide abil saab tüübitaseme andmeid tarvitada loomaks näiteks vektoreid, mille pikkus on tüübi tasemel teada.
+      Tegu on tühjade tüüpidega, millel puuduvad andmekonstruktorid ja mis on mõeldud spetsiaalselt tüübitaseme andmete rolli täitmiseks.
+
+      Toome mõned lihtsad näited andmetüüpidest, mille konstrueerimiseks on vaja tüübitaseme andmeid. Üldistatud algebraliste andmetüüpide abil saab tüübitaseme andmeid tarvitada loomaks näiteks vektoreid, mille pikkus on tüübi tasemel teada. Neil on kaks konstruktorit: üks tühja vektori jaoks, ja teine vektori jaoks pikkusega \verb!n + 1!, mis võtab argumendiks pea ja \verb!n!-elemendilise saba.
 
       \begin{verbatim}data Array :: * -> * -> * where
   Empty_Array :: Array Zr t
   Construct_Array :: t -> Array n t -> Array (Next n) t\end{verbatim}
 
-      Tüübitaseme naturaalarvusid saab kasutada ka selleks, et luua \verb!n! muutuja Boole'i funktsiooni tüüp.
+      Tüübitaseme naturaalarvusid saab kasutada ka selleks, et luua suvalise arvu muutujatega Boole'i funktsiooni tüüp. \verb!0! muutuja Boole'i funktsioon on üks konstant. \verb!n + 1! muutuja Boole'i funktsioon saab esitada kahe \verb!n! muutuja Boole'i funktsiooni abil (jääkfunktsioonid, mille saame, asendades esimese muutuja vastavalt konstandiga \verb!False! või \verb!True!).
 
       \begin{verbatim}data Fun :: * -> * where
   Constant :: Bool -> Fun Zr
   Branch :: Fun n -> Fun n -> Fun (Next n)\end{verbatim}
 
-      Tüübitaseme listide abil saame luua üldistatud ennikuid.
+      Tüüpide listi abil saame luua üldistatud ennikuid, mis sarnanevad struktuuri poolest üleelmises näited toodud vektoritele, selle vahega, et nad võivad sisaldada erinevat tüüpi andmeid.
 
       \begin{verbatim}data Tuple :: * -> * where
   Empty_Tuple :: Tuple Empty_List
   Construct_Tuple :: t -> Tuple l -> Tuple (Construct_List t l)\end{verbatim}
 
-      Kui saame teha tüübitaseme listi naturaalarvudest, on seda võimalik kasutada loomaks mitmemõõtmelist tabelit, mille kõigi mõõtmete pikkus on tüübi tasemel teada.
+      Kui saame teha tüübitaseme listi naturaalarvudest, on seda võimalik kasutada loomaks mitmemõõtmelist tabelit, mille kõik mõõtmed on tüübi tasemel teada.
 
       \begin{verbatim}data Array' :: * -> * -> * where
   Empty_Array' :: t -> Array' Empty_List t
   Construct_Array' :: Array n (Array' l t) -> Array' (Construct_List n l) t\end{verbatim}
 
-      Niiviisi teostatud tüübitaseme andmetel on oluline puudus. Liigisüsteem ei ole piisavalt keeruline kirjeldamaks programmeerija tegelikke kavatsusi. Tüübid ei ole piisavalt tugevalt tüübitud. Ei ole liike, mis lubaks kirjeldada, et kohas kus võib esineda näiteks tüüp \verb!Char! või \verb!Int!, ei tohi esineda naturaalarvuline tüüp, ja vastupidi~\cite{Giv}. Tüübikontrollist lähevad läbi koodinäited, mis ei ole programmeerija tegelike kavatsustega kooskõlas, näiteks:
+      Tüübitaseme andmed on kasulikud selleks, et saaks kirjutada tüübiturvalisemaid funktsioone. Näiteks kui tahame kirjutada vektorite liitmise funktsiooni, siis juhul kui kasutada vektorite esitamiseks liste, siis on tarvis arvestada ohuga, et programmeerija annab funktsiooni sisendiks erineva pikkusega listid. Erineva pikkusega listid resulteeruvad defineerimata käitumises või erindis programmi töö käigus ning tüüpimise ajal ei ole seda võimalik ennetavalt tuvastada.
+
+      Tüübitaseme andmete olemasolul saab vektorite liitmise funktsiooni kirjutada eelpool näiteks toodud \verb!Array! tüübi peal, ning see tagab, et iga vektorite liitmise funktsiooni kutse puhul kontrollitakse juba tüüpimise ajal, et mõlemad argumendid oleks sama pikad.
+    \subsection{Tüübid, liigid ja sordid}
+      \markus{Seletada, mis on liik ja sort + viited.} \markus{Nüüd, kui see jupp on eraldi jaotis, on sellele sujuvamat algust vaja.} Niiviisi teostatud tüübitaseme andmetel on oluline puudus. Liigisüsteem ei ole piisavalt keeruline kirjeldamaks programmeerija tegelikke kavatsusi. Tüübid ei ole piisavalt tugevalt tüübitud. Ei ole liike, mis lubaks kirjeldada, et kohas kus võib esineda näiteks tüüp \verb!Char! või \verb!Int!, ei tohi esineda naturaalarvuline tüüp, ja vastupidi~\cite{Giv}. Tüübikontrollist lähevad läbi koodinäited, mis ei ole programmeerija tegelike kavatsustega kooskõlas, näiteks:
 
       \begin{verbatim}data Array :: * -> * -> * where
   Empty_Array :: Array Zr t
   Construct_Array :: t -> Array n t -> Array (Next t) n\end{verbatim}
 
-      Siin on konstruktori \verb!Construct_Array! tulemuse tüübis vahetusse läinud tüübimuutujad \verb!n! ja \verb!t!. Koodinäide ei tohiks tegelikult tüüpuda. Vältimaks selliseid vigu, oleks vaja liigisüsteemi, mis on piisavalt võimas kirjeldamaks, et tüübikonstruktori \verb!Array! esimene argument peab olema naturaalarv ja teine tavaline tüüp.
+      Siin on konstruktori \verb!Construct_Array! tulemuse tüübis vahetusse läinud tüübimuutujad \verb!n! ja \verb!t!. Koodinäide ei tohiks tegelikult tüüpuda, sest need tüübimuutujad on erinevat liiki. Vältimaks seda laadi vigu, oleks vaja liigisüsteemi, mis on piisavalt võimas kirjeldamaks, et tüübikonstruktori \verb!Array! esimene argument peab olema naturaalarv ja teine tavaline tüüp, ja et tüübikonstruktorit \verb!Next! saab rakendada ainult naturaalarvule.
 
-      Lisaks eelmainitud peamisele puudusele, on oluline miinus ka see, et programmeerija peab tüüpide tasemel duplitseerima andmeid, mis on algebralise andmetüübi kujul tegelikult juba olemas. Edutamine lahendab need probleemid, lubades andmetüübid "üks tase ülespoole" tõsta: tüüpidest saavad automaatselt liigid ja andmekonstruktoritest saavad vastavate liikide tüübid~\cite{Giv}.
-\begin{comment}
-  \begin{frame}[fragile]{Promotion}
-    The solution is a more expressive kind system. \textit{Promotion} automatically makes new kinds and types from algebraic data types. Everything moves up one level.
-    \begin{itemize}
-      \item
-        Type constructor -> Kind constructor
-      \item
-        Type parameter (of kind \verb!*!) -> Kind parameter
-      \item
-        Data constructor -> Type constructor
-      \item
-        Data constructor argument type -> Type constructor argument kind
-    \end{itemize}
-  \end{frame}
-  \begin{frame}[fragile]{An Example of Promotion}
-    \begin{kood}{Lists}
-      \begin{verbatim}
-data Lst (t :: *) = LNil | LCons t (Lst t)\end{verbatim}
-    \end{kood}
-    \begin{itemize}
-      \item
-        Data constructors:
-        \begin{itemize}
-          \item
-            {\color{blue}\verb!LNil :: Lst (t :: *)!}
-          \item
-            {\color{blue}\verb!LCons :: (t :: *) -> Lst t -> Lst t!}
-        \end{itemize}
-      \item
-        Type constructors:
-        \begin{itemize}
-          \item
-            {\color{blue}\verb!Lst :: * -> *!}
-          \item
-            {\color{crimson}\verb!LNil :: Lst k!}
-          \item
-            {\color{crimson}\verb!LCons :: k -> Lst k -> Lst k!}
-        \end{itemize}
-      \item
-        Kind constructor:
-        \begin{itemize}
-          \item
-            {\color{crimson}\verb!Lst :: * -> *!}
-        \end{itemize}
-    \end{itemize}
-  \end{frame}
-  \begin{frame}[fragile]{Examples Revisited}
-    \begin{kood}{Lists With Type-Level Emptiness Information}
-      \begin{verbatim}
-data List' :: Bool -> * -> * where
-  Empty :: List' False (t :: *)
-  Nonempty ::
-    (t :: *) -> List' (b :: Bool) t -> List' True t\end{verbatim}
-    \end{kood}
-    \begin{kood}{Finite Rings}
-      \begin{verbatim}
-data Fin :: Nat -> * where
-  FZero :: Fin (NSucc (n :: Nat))
-  FSucc :: Fin (n :: Nat) -> Fin (NSucc n)\end{verbatim}
-    \end{kood}
-  \end{frame}
-  \begin{frame}[fragile]{Examples Revisited}
-    \begin{kood}{Vectors}
-      \begin{verbatim}
-data Vec :: Nat -> * -> * where
-  VNil :: Vec NZero (t :: *)
-  VCons ::
-    (t :: *) -> Vec (n :: Nat) t -> Vec (NSucc n) t\end{verbatim}
-    \end{kood}
-    \begin{kood}{Boolean Functions (Shannon Expansions)}
-      \begin{verbatim}
-data Fun :: Nat -> * where
-  Constant :: Bool -> Fun NZero
-  Branch :: Fun (n :: Nat) -> Fun n -> Fun (NSucc n)\end{verbatim}
-    \end{kood}
-  \end{frame}
-  \begin{frame}[fragile]{Examples Revisited}
-    \begin{kood}{Generalised Tuples}
-      \begin{verbatim}
-data Prod :: [*] -> * where
-  PNil :: Prod LNil
-  PCons ::
-    (t :: *) -> Prod (l :: [*]) -> Prod (LCons t l)\end{verbatim}
-    \end{kood}
-    \begin{kood}{Generalised Either}
-      \begin{verbatim}
-data Sum :: [*] -> * where
-  SLeft :: (t :: *) -> Sum (LCons t (l :: [*]))
-  SRight ::
-    ((t :: *) -> Sum (l :: [*])) ->
-    Sum (LCons (u :: *) l)\end{verbatim}
-    \end{kood}
-  \end{frame}
-  \begin{frame}[fragile]{Examples Revisited}
-    \begin{kood}{Multidimensional Vectors}
-      \begin{verbatim}
-data Multivec :: [Nat] -> * -> * where
-  ZDimensional :: (t :: *) -> Multivec LNil t
-  NDimensional ::
-    Vec (n :: Nat) (Multivec (l :: [Nat]) (t :: *)) ->
-    Multivec (LCons n l) t\end{verbatim}
-    \end{kood}
-  \end{frame}
-  \begin{frame}[fragile]{The New Kind and Type System}
-    \begin{tabular}{c||c|c}
-            & Old                  & New              \\\hline\hline
-      Sort & Not necessary        & \verb!* | * -> k! \\\hline
-      Kind & \verb!* | k -> l!    & \verb!Name | k l! \\\hline
-      Type & No kind polymorphism & Kind polymorphism
-    \end{tabular}
-\end{comment}
+      Lisaks eelmainitud peamisele puudusele, on oluline miinus ka see, et programmeerija peab tüüpide tasemel duplitseerima andmeid, mis on algebralise andmetüübi kujul tegelikult juba olemas.
+
+      Edutamine lahendab need probleemid, muutes tüübi- ja liigisüsteemi võimsamaks ning tagades, et programmeerija ei peaks ise käsitsi tüübitaseme andmeid kirjutama. Järgmistes jaotistes räägimegi sellest, kuidas edutamine töötab, kuidas see muudab tüübisüsteemi ja millised andmetüübid on edutatavad.
     \subsection{Edutamine}
-      \subsubsection{Andmetüübid, mida saab edutada}
+      Edutamine tõstab sobivad andmetüübid automaatselt "`üks tase ülespoole"'. Andmetüübi edutamisel tehakse tüübikonstruktorist liigikonstruktor, kusjuures tüübiparameetritest saavad liigiparameetrid. Andmekonstruktoritest saavad vastava liigi tüübikonstruktorid, kusjuures argumentide tüüpidest saavad tüübikonstruktorite argumentide liigid~\cite{Giv}.
+      \subsubsection{Edutamise näiteid}
+        \markus{siia natuke pikem kirjeldus edutamisest}
+
+        Võtame esimeseks näiteks lihtsa andmetüübi, kus puudub polümorfism: naturaalarvud.
+
+        \begin{verbatim}data Nat = Zr | Next Nat\end{verbatim}
+
+        Ilma edutamiseta saab siit tüübi \verb!Nat :: *! ning kaks andmekonstruktorit \verb!Zr :: Nat! ja \verb!Next :: Nat -> Nat!. Edutamise olemasolul saab lisaks ka liigi \verb!Nat! ning kaks tüübikonstruktorit \verb!Zr :: Nat! ja \verb!Next :: Nat -> Nat!.
+
+        Vaatleme keerulisemat näidet: liste.
+
+        \begin{verbatim}data List (t :: *) = Empty_List | Construct_List t (List t)\end{verbatim}
+
+        Ilma edutamiseta saab sellest andmetüübist tüübikonstruktori \verb!List :: * -> *! ning kaks andmekonstruktorit \verb!Empty_List! tüüpi \verb!List (t :: *)! ja \verb!Construct_List! tüüpi \verb!(t :: *) -> List t -> List t!. Edutamise olemasolul saab sellest andmetüübist lisaks ka ühe argumendiga liigikonstruktori \verb!List! ning kaks tüübikonstruktorit \verb!Empty_List! liiki \verb!List k! ja \verb!Construct_List! liiki \verb!k -> List k -> List k!.
+
+        Listide puhul tuleb mängu polümorfism. Parametriseeritud tüüp muutub parametriseeritud liigiks. Tüübipolümorfsetest andmekonstruktoritest saavad liigipolümorfsed tüübikonstruktorid.
+      \subsubsection{Andmetüübid, mida saab edutada}\label{kitsendused}
         Edutamisele on mõistlik seada teatud piirangud ning edutada ainult osasid andmetüüpe, mitte kõiki. Piirangud on seotud sooviga kasutada edutamise võimalusi (näiteks tüübitaseme naturaalarvusid ja liste) ilma muutmata tüübisüsteemi keerulisemaks kui hädapärast vajalik. Loetleme siinkohal piirangud, mida on kasutatud Haskellis~\cite{Giv}.
 
         \begin{itemize}
           \item
-            Ei edutata üldistatd algebraliseid andmetüüpe. \markus{Too difficult to promote as they would complicate the kind system with equality constraints and coercions.}
+            Ei edutata üldistatud algebraliseid andmetüüpe. \markus{Too difficult to promote as they would complicate the kind system with equality constraints and coercions.}
           \item
-            Ei edutata primitiive.
+            Ei edutata primitiive, näiteks tähti ja täisarvusid. Primitiivide edutamisega ei kaasne tegelikult sisulisi raskusi, küll aga võib neile praktiliste rakenduste leidmine nõua teisi keele täiendusi, mis ei ole sama lihtsad. Haskellis on primitiivide edutamata jätmise põhjuseks see, et keele laienduse autorite arvates ei ole primitiivide edutamine kasulik kui ei ole võimalik edutada tüübitasemele ka tehteid primitiividega (näiteks \verb!Int! tüüpi täisarvude liitmist).
           \item
-            Ei edutata andmetüüpe, millel on tüübiparameetreid muud liiki kui liik \verb!*!. Juhul kui edutada ainult sellele kitsendusele vastavaid andmetüüpe, on sortide (liigi-tüüpide) süsteem äärmiselt lihtne. Kõik liigimuutujad ühte sorti. See tähendab, et liigipolümorfismi korral ei pea liigimuutujate sorte märkima. Liigikonstruktorite sortideks on lihtsalt naturaalarvud, mis näitavad, mitut liigiargumenti nad vajavad.
+            Ei edutata andmetüüpe, millel on tüübiparameetreid muud liiki kui liik \verb!*!. Juhul kui edutada ainult sellele kitsendusele vastavaid andmetüüpe, on sortide süsteem äärmiselt lihtne. Kõik liigimuutujad on ühte sorti. See tähendab, et liigipolümorfismi korral ei pea liigimuutujate sorte märkima. Liigikonstruktori sort on lihtsalt naturaalarv, mis näitab, mitut argumenti liigikonstruktor vajab.
 
-            Juhul, kui soovida edutada andmetüüpe, mis sisaldaks tüübiparameetrites mitte ainult liiki \verb!*! vaid ka liigikonstruktorit \verb!->!, ei ole sellele põhimõttelisi takistusi, aga oleks kohe vaja keerulisemat sortide süsteemi. Liigimuutujad võivad olla erinevat sorti. Liigipolümorfismi korral oleks vaja liigimuutujate sorte märkida. Edutamise teostamine muutuks keerulisemaks, samas kui vajadus sellise võimsusega liigisüsteemi järele on küsitav.
+            Juhul, kui soovida edutada andmetüüpe, mis sisaldaks tüübiparameetrites mitte ainult liiki \verb!*! vaid ka liigikonstruktorit \verb!->!, ei ole sellele põhimõttelisi takistusi, aga selline täiendus nõuaks keerulisemat sortide süsteemi. Liigimuutujad võivad olla erinevat sorti. Liigipolümorfismi korral oleks vaja liigimuutujate sorte märkida. Edutamise teostamine muutuks keerulisemaks, samas kui vajadus sellise võimsusega liigisüsteemi järele on küsitav.
 
-            Kui tahta minna veel kaugemale ja edutada andmetüüpe, mis on parametriseeritud üle omakorda edutamise teel saadud liikide, oleks see veel keerulisem. \markus{miks? vaadata uuesti artiklit, kirjeldada mis probleemid tekivad}
+            Kui tahta minna veel kaugemale ja edutada andmetüüpe, mis on parametriseeritud üle omakorda edutamise teel saadud liikide, oleks see veel keerulisem. Sellisel juhul oleks vaja \textit{topeltedutamist} -- tüübid, mis ei ole parametriseeritud üle edutamise teel saadud liikide, tuleks edutada kaks taset ülespoole -- või peaks tüübid ja liigid sõltuvad olema.
           \item
-            Loomulikult ei tohi edutada ka andmetüüpe, millel on andmekonstruktoreid, mis võtavad mitte-edutatavat tüüpi argumente. Kuna andmekonstruktorite edutamisel muutub tüüp liigiks, aga mitte-edutatavat tüüpi liigiks muuta ei saa, ei ole see võimalik. Seega andmetüübi mitte-edutatavus levib kõigile teistele andmetüüpidele mis teda otseselt või kaudselt kasutavad.
+            Ei edutata liigipolümorfseid tüüpe, kuna sellisel juhul oleks vajalik sordipolümorfism.
+          \item
+            Loomulikult ei tohi edutada andmekonstruktoreid, mis võtavad mitte-edutatavat tüüpi argumente. Andmekonstruktorite edutamisel muutub tüüp liigiks, aga mitte-edutatavat tüüpi liigiks muuta ei saa, ei ole see võimalik. Tüübi mitte-edutatavus levib kõigile andmekonstruktoritele mis teda kasutavad.
         \end{itemize}
 
-        Samu piiranguid on kasutatud ka Awful keeles. Reegli asemel, et ei edutata üldistatud algebralisi andmetüüpe, on Awful tüübisüsteemis reegel, et ei edutata
-\begin{comment}
-    \begin{kysimus}{Should we promote this?}
-      \begin{verbatim}
-data Fun (t :: *) (u :: *) = Fun (t -> u)\end{verbatim}
-    \end{kysimus}
-\end{comment}
+        Sarnastest piirangutest on lähtutud ka keele Awful loomisel, teatud muudatustega.
+
+        \begin{itemize}
+          \item
+            Keeles ei ole üldistatud algebralisi andmetüüpe, aga on hargnevad andmetüübid, mida kirjeldame alamjaotises~\ref{hargnevad}. Reegli asemel, et ei edutata üldistatud algebralisi andmetüüpe, on keeles Awful tüübisüsteemis reegel, et ei edutata hargnevaid andmetüüpe.
+          \item
+            Isegi kui jätta kõrvale asjaolu, et tüübitaseme tehteid ei ole keelde Awful plaanis lisada, siis võimalused andmetüüpide konstrueerimiseks on palju piiravamad kui üldistatud algebralised andmetüübid. Selle tõttu ei näe käesoleva töö autor hetkel keeles Awful primitiivide edutamisele mõttekaid rakendusi. Tulevikku vaadates on see siiski teostatud, juhuks kui andmetüüpide konstrueerimise viisid tulevikus võimsamaks muutuvad.
+          \item
+            Lihtsuse huvides edutab Awful ainult neid andmetüüpe, mille kõik konstruktorid on edutatavad. Andmetüübi edutamist koos ainult osade konstruktorite edutamist ei tehta.
+          \item
+            Oleks võimalik edutada funktsiooni tüüpi sisaldavaid andmekonstruktoreid, näiteks
+
+            \begin{verbatim}data Fun t u = Fun (t -> u)\end{verbatim}
+
+            Siit oleks võimalik edutamise teel saada kahe argumendiga liigikonstruktor \verb!Fun! ning liigipolümorfne tüübikonstruktor \verb!Fun! liiki \verb!Fun!(t -> u) -> Fun t u!, kus sümbol \verb!->! tähistab tüübikonstruktori liiki. Selline edutamine võimaldaks edutada andmekonstruktoreid, mis võtavad argumendiks funktsioone, ja neist tuleks tüübikonstruktorid, mis võtavad argumendiks tüübikonstruktoreid.
+
+            Keeles Awful sellist tüüpi hetkel ei edutata, sest selleks ei olnud otsest vajadust, aga antud täiendusele ei tundu olevat põhimõttelisi takistusi ja ei ole välistatud tulevikus selle võimaluse lisamine.
+        \end{itemize}
+      \subsubsection{Tüübisüsteemi täiendused edutamise lisamisel}
+        Selleks, et saaks toimuda edutamine (alamjaotises~\ref{kitsendused} kirjeldatud kitsendustega), on tarvis tüübisüsteemi täiendada. Selles alamjaotises kirjeldame lühidalt, mis muudatused olid keeles Awful edutamise teostamiseks vajalikud.
+
+        \begin{itemize}
+          \item
+            Kui edutame tüübipolümorfseid andmekonstruktoreid, näiteks listikonstruktorid, muutub tüübipolümorfism liigipolümorfismiks. Seega tekib vajadus liigipolümorfsete tüüpide järele.
+
+            Täpselt nagu tüübipolümorfism ilma kohustusliku tüübirakenduseta toob kaasa vajaduse tüübituletuse järele, toob liigipolümorfism ilma kohustusliku liigirakenduseta kaasa vajaduse liigituletuse järele. Keel Awful nõuab teostuse lihtsuse huvides liigirakendust kõigi liigipolümorfsete tüüpide kasutamisel, et vätida liigituletust. Kuna liigipolümorfsed tüübid ei ole nii laias kasutuses kui tüübipolümorfsed andmekonstruktorid ja funktsioonid, ei muuda liigituletuse puudumine keelt nii kohmakaks kui tüübituletuse puudumine.
+          \item
+            Liigisüsteem peab olema piisavalt võimas ja paindlik, et võimaldada tüüpidest uusi liike teha. Enne edutamise lisamist oli keeles Awful ainult äärmiselt primitiivne liigisüsteem, mis sisaldas liiki \verb!Star! (analoogne Haskelli liigiga \verb!*!) ja liiki \verb!Arrow! (tüübikonstruktorite liik, analoogne Haskelli liigiga \verb!->!). Interpretaatori sees olid liigid esitatud järgneva andmetüübi abil:
+
+            \begin{verbatim}data Kind = Star_kind | Arrow_kind Kind Kind\end{verbatim}
+
+            Selgelt ei ole sellisele fikseeritud liigisüsteemile võimalik edutamist üles ehitada ja on tarvis olulisi muudatusi. Keele Awful interpretaator kasutab liigi esitamiseks andmetüüpi
+
+            \begin{verbatim}data Kind = Name_kind | Application_kind Kind Kind\end{verbatim}
+
+            Liike \verb!Star! ja \verb!Arrow! käsitletakse muudatuse järel lihtsalt kui nimede erijuhtumeid.
+          \item
+            Enne edutamise teostamist ei olnud keeles Awful sorte. Sortide järele ei olnud vajadust, sest oli ainult kaks fikseeritud liigikonstruktorit ning programmeerija kirjutatud liigi korrektsust oli võimalik kontrollida otse parseri tasandil.
+
+            Liigisüsteem, mida saab lõpmatult uute liikidega laiendada, nõuab sorte. Liike ei saa üksteisele suvaliselt rakendada. Näiteks \verb!Star Arrow! ei ole korrektne liik ega isegi liigikonstruktor, sest \verb!Star! ei võta argumente ja seega ei tohi teda millelegi rakendada. Õnneks on edutamisele seatud piisavalt ranged piirangud ja sortide süsteem ei ole seega keeruline: liigikonstruktori sordiks on naturaalarv, mis näitab, mitut argumenti on tarvis.
+
+            \begin{verbatim}data Sort = Star_sort | Arrow_sort Sort\end{verbatim}
+          \item
+            Primitiivide edutamisel on vaja lisada vastavad tüübid.
+        \end{itemize}
+      \subsubsection{Edutamise kasutusjuhtusid}
+        Selles alamjaotises külastame uuesti näiteid, mida tõime alamjaotises~\ref{tyybitasemeandmed} rääkides tüübitaseme andmete rakendustest. Näitame, kuidas edutamine muudab nad tüübiturvaliseks ja aitab vältida korduvat koodi.
+
+        Esiteks ei ole edutamise olemasolu korral enam tarvis käsitsi eksplitsiitselt tüübitaseme andmeid kirjeldada. Kirjutame naturaalarvude andmetüübi
+
+        \begin{verbatim}data Nat = Zr | Next Nat\end{verbatim}
+
+        ja sellest tuletatakse automaatselt liik \verb!Nat! ning vastava liigi tüübikonstruktorid \verb!Zr :: Nat! ja \verb!Next :: Nat -> Nat!. Mis kõige tähtsam, tänu sellele, et nüüd on olemas liik \verb!Nat!, on tüübitaseme naturaalarvud teostatud tüübiturvaliselt: tüübikonstruktori \verb!Next! puhul on teada, et tema argumendiks kõlbab ainult naturaalarv ja mitte näiteks täht või list.
+
+      \begin{verbatim}data Zr
+data Next n\end{verbatim}
+
+      Toome mõned lihtsad näited sellest, milleks saab tüübitaseme andmeid kasutada. Üldistatud algebraliste andmetüüpide abil saab tüübitaseme andmeid tarvitada loomaks näiteks vektoreid, mille pikkus on tüübi tasemel teada.
+
+      \begin{verbatim}data Array :: Nat -> * -> * where
+  Empty_Array :: Array Zr t
+  Construct_Array :: t -> Array n t -> Array (Next n) t\end{verbatim}
+
+      Tüübitaseme naturaalarvusid saab kasutada ka selleks, et luua \verb!n! muutuja Boole'i funktsiooni tüüp.
+
+      \begin{verbatim}data Fun :: Nat -> * where
+  Constant :: Bool -> Fun Zr
+  Branch :: Fun n -> Fun n -> Fun (Next n)\end{verbatim}
+
+      Tüüpide listi abil saame luua üldistatud ennikuid.
+
+      \begin{verbatim}data Tuple :: [*] -> * where
+  Empty_Tuple :: Tuple []
+  Construct_Tuple :: t -> Tuple l -> Tuple (t : l)\end{verbatim}
+
+      Kui saame teha tüübitaseme listi naturaalarvudest, on seda võimalik kasutada loomaks mitmemõõtmelist tabelit, mille kõik mõõtmed on tüübi tasemel teada.
+
+      \begin{verbatim}data Array' :: [Nat] -> * -> * where
+  Empty_Array' :: t -> Array' [] t
+  Construct_Array' :: Array n (Array' l t) -> Array' (n : l) t\end{verbatim}
+
+      Siinkohal võib tekkida küsimus, kas edutamise praktiline kasutamine on võimalik keeles, kus ei ole üldistatud algebralisi andmetüüpe. Need lihtsad ja kasulikud rakendused, mida oleme selles alamjaotises vaadelnud, ei ole teostatavad ainult algebraliste andmetüüpide abil, kuna andmekonstruktorite resultaattüübid peavad erinema. Näiteks vektorite puhul annab üks andmekonstruktor tulemuseks vektori, mille pikkus on \verb!Zr!, aga teine annab tulemuseks vektori pikkusega \verb!Next n!.
+
+      Hea uudis on see, et paljud edutatud andmetüüpide rakendused on siiski võimalikud ilma keelde üldistatud algebralisi andmetüüpe lisamata. On võimalik kasutada piiravamat ja lihtsamat viisi andmetüüpide konstrueerimiseks. Awful toob sisse \textit{hargnevad andmetüübid}, mida tutvustame alamjaotises~\ref{hargnevad}.
     \subsection{Edutamisega kaasnev nimekonflikt}
       Haskellis on tihti tavaks, et andmetüübi konstruktori nimi ühtib tüübi nimega, näiteks
 
@@ -358,249 +366,58 @@ data Fun (t :: *) (u :: *) = Fun (t -> u)\end{verbatim}
       \subsubsection{Eksplitsiitne edutamine vajaduse korral}
         Haskellis kasutatakse juhtudel, kus tekib nimede konflikt, edutamise teel saadud tüübikonstruktori ees ülakoma~\cite{Giv}. Antud näite korral tähistab tüübikonstruktor \verb!Pair! tavalist tüübikonstruktorit liiki \verb!* -> * -> *! ning \verb!'Pair! tähistab edutamise teel saadud tüübikonstruktorit liiki \verb!t -> u -> Pair t u!.
 
-        Tasub mainida ka, et juhul kui kasutaja otsustab Haskellis \verb!-Wall! võtit kasutada, antakse hoiatused kõigi edutamise teel saadud tüübikonstruktorite kohta, mille ette ei ole ülakoma pandud, ka nende kohta, mille puhul ei ole nimekonflikti võimalust~\cite{Gla}.
+        Tasub mainida ka, et juhul kui kasutaja otsustab Haskellis \verb!-Wall! võtit kasutada, antakse hoiatused kõigi edutamise teel saadud tüübikonstruktorite kohta, mille ette ei ole ülakoma pandud -- ka nende kohta, mille puhul ei ole nimekonflikti võimalust~\cite{Gla}.
       \subsubsection{Nimekonflikti vältimine}
         Üks võimalus nimekonflikti lahendada on keelata tüübikonstruktori ja andmekonstruktori nimede ühtimine.
 
         \begin{verbatim}data Pair t u = MkPair t u\end{verbatim}
 
-        Antud lahendus on lihtne, aga tal on puudusi. Nii on võimalik vältida edutamise eksplitsiitset märkimist, aga samas muutuvad pikemaks tavalised andmekonstruktorid. Programmeerijatele, kes on harjunud tüübikonstruktorit ja andmekonstruktorit sama nimega nimetada, võib olla kergem kohaneda edutamise eksplitsiitse märkimisega kui andmekonstruktorite teisiti nimetamisega.
+        Antud lahendus on lihtne, aga tal on puudusi. Nii on võimalik vältida edutamise eksplitsiitset märkimist, aga samas muutuvad pikemaks tavalised andmekonstruktorid. Programmeerijatele, kes on harjunud tüübikonstruktorit ja andmekonstruktorit sama nimega nimetama, võib olla kergem kohaneda edutamise eksplitsiitse märkimisega kui andmekonstruktorite teisiti nimetamisega.
       \subsubsection{Eksplitsiitne edutamine alati}
         Nimekonflikti saab lahendada ka märkides kõik edutamise teel saadud liigid ja tüübid mõne spetsiaalse sümboliga, näiteks ülalpool mainitud andmetüübi \verb!Pair! deklaratsioon annaks lisaks tavalisele andmekonstruktorile ja tüübikonstruktorile ka 2 argumendi liigikonstruktori \verb"!Pair" ja tüübikonstruktori \verb"!Pair" liiki \verb"t -> u -> !Pair t u".
 
         Käesoleva töö autori arvates on tegu hea lahendusega, sest erinevalt eksplitsiitsest edutamisest ainult vajaduse korral näevad edutamise teel saadud tüübikonstruktorid ühtlasemad välja. Lisaks võib edutamise teel saadud liigi- ja tüübikonstruktorite eksplitsiitne eristamine aidata programmeerijat, kes ei ole veel edutamisega harjunud ja ei tunne end kindlalt seda abstraktsiooni kasutades. Täpselt nagu tüüpide juurde märkimine võib vahel koodi isedokumenteeruvusele kaasa aidata, võib seda teha ka edutamise teel saadud tüübikonstruktorite eksplitsiitne märkimine.
 
         Selle tõttu ongi tegu lahendusega, mis sai valitud käesoleva töö raames loodud programmeerimiskeele jaoks. Awful kasutab edutamise tähistamiseks hüüumärki ning nõuab seda nii edutamise teel saadud liikide kui ka tüüpide ees.
-    \subsection{Sõltuvad tüübid}\label{soltuvad}
-      Mõnedes keeltes, näiteks Agda, Coq ja Idris, on olemas sõltuvad tüübid. \markus{TODO: viited nende keelte kohta.} Sõltuvad tüübid tähendavad, et tüübid võivad sõltuda väärtustest. Sõltuvad tüübid on võimsamad kui edutamine, pakkudes palju laiemaid võimalusi.
-\begin{comment}
- \begin{frame}[fragile]{About Idris}
-    \begin{itemize}
-      \item
-        Purely functional
-      \item
-        Dependent types
-      \item
-        Strict by default; optional laziness
-      \item
-        Totality checking
-      \item
-        Easy management of side effects
-      \item
-        Support for EDSL-s
-      \item
-        Syntax similar to Haskell
-      \item
-        Parametric polymorphism
-      \item
-        GADT-s
-      \item
-        Interfaces
-    \end{itemize}
-  \end{frame}
-  \begin{frame}[fragile]{Creating data types}
-    \begin{verbatim}
-data List t = Cons t (List t) | Nil
-    \end{verbatim}
-    \begin{verbatim}
-data List : Type -> Type where
-  (::) : t -> List t -> List t
-  Nil : List t
-    \end{verbatim}
-  \end{frame}
-  \begin{frame}[fragile]{Totality checking and assertions}
-    \begin{verbatim}
-fromInteger x =
-  if x == 0 then
-    Z
-  else
-    S (fromInteger (assert_smaller x (x - 1)))
-    \end{verbatim}
-  \end{frame}
-  \begin{frame}[fragile]{Dependent types}
-    \begin{verbatim}
-data Vect : Nat -> Type -> Type where
-  (::) : t -> Vect n t -> Vect (S n) t
-  Nil : Vect Z t
-    \end{verbatim}
-    \begin{verbatim}
-app : Vect m t -> Vect n t -> Vect (m + n) t
-app (x :: xs) ys = x :: app xs ys
-app Nil ys = ys
-    \end{verbatim}
-  \end{frame}
-  \begin{frame}[fragile]{Mutually recursive functions}
-    \begin{verbatim}
-mutual
-  even : Nat -> Bool
-  even (S x) = odd x
-  even Z = True
-  odd : Nat -> Bool
-  odd (S x) = even x
-  odd Z = False
-    \end{verbatim}
-  \end{frame}
-  \begin{frame}[fragile]{Naming arguments}
-    \begin{verbatim}
-replicate : (n : Nat) -> t -> Vect n t
-replicate (S k) x = x :: replicate k x
-replicate Z _ = Nil
-    \end{verbatim}
-  \end{frame}
-  \begin{frame}[fragile]{Naming and providing implicit arguments}
-    \begin{verbatim}
-index :
-  {t : Type} ->
-  {n : Nat} ->
-  Vect n t ->
-  Fin n ->
-  t
-index (x :: _) FZ = z
-index (_ :: xs) (FS k) = index xs k
-    \end{verbatim}
-    \begin{verbatim}
-two : Int
-two =
-  index {t = Int} {n = S (S Z)}
-    FZ (2 :: 3 :: Nil)
-    \end{verbatim}
-  \end{frame}
-  \begin{frame}[fragile]{using block}
-    \begin{verbatim}
-using (x : t, y : t, xs : Vect n t)
-  data IsElem : t -> Vect n t -> Type where
-    Here : IsElem x (x :: xs)
-    There : IsElem x xs -> IsElem x (y :: xs)
-    \end{verbatim}
-  \end{frame}
-  \begin{frame}[fragile]{Qualified names}
-    \begin{verbatim}
-testVec : Vect (S (S (S (S Z)))) Int
-testVec = 3 :: 4 :: 5 :: 6 :: Nil
-    \end{verbatim}
-    \begin{verbatim}
-inVect : IsElem 5 Hello.testVec
-inVect = There (There Here)
-    \end{verbatim}
-  \end{frame}
-  \begin{frame}[fragile]{Laziness}
-    \begin{verbatim}
-ifThenElse : Bool -> Lazy t -> Lazy t -> t
-ifThenElse True x _ = x
-ifThenElse False _ y = y
-    \end{verbatim}
-  \end{frame}
-  \begin{frame}[fragile]{Infinite data structures}
-    \begin{verbatim}
-codata Stream : Type -> Type where
-  (::) : t -> Stream t -> Stream t
-    \end{verbatim}
-    \begin{verbatim}
-data Stream : Type -> Type where
-  (::) : t -> Inf (Stream t) -> Stream t
-    \end{verbatim}
-  \end{frame}
-  \begin{frame}[fragile]{Mutually recursive data types}
-    \begin{verbatim}
-mutual
-  data Blue : Type -> Type where
-    B : t -> Inf (Red t) -> Blue t
-  data Red : Type -> Type where
-    R : t -> Inf (Blue t) -> Red t
-    \end{verbatim}
-  \end{frame}
-  \begin{frame}[fragile]{Records}
-    \begin{verbatim}
-record Person where
-  constructor MkPerson
-  firstName, middleName, lastName : String
-  age : Int
-    \end{verbatim}
-    \begin{verbatim}
-fred : Person
-fred = MkPerson "Fred" "Joe" "Bloggs" 30
-    \end{verbatim}
-  \end{frame}
-  \begin{frame}[fragile]{Updating records}
-    \begin{verbatim}
-jim : Person
-jim =
-  record
-  {firstName = "Jim", age $= (+ 1)}
-  fred
-    \end{verbatim}
-  \end{frame}
-  \begin{frame}[fragile]{Nested updates}
-    \begin{verbatim}
-record Rec_a where
-  constructor Constr_a
-  field_b : Int
-    \end{verbatim}
-    \begin{verbatim}
-record Rec_x where
-  constructor Constr_x
-  field_a : Rec_a
-    \end{verbatim}
-    \begin{verbatim}
-update_b_in_x : Rec_x -> Int -> Rec_x
-update_b_in_x x b =
-  record {field_a -> field_b = c} x
-    \end{verbatim}
-  \end{frame}
-  \begin{frame}[fragile]{Alternative to do-notation}
-    \begin{verbatim}
-m_add : Maybe Int -> Maybe Int -> Maybe Int
-m_add x y = do
-  x' <- x
-  y' <- y
-  pure (x' + y')
-    \end{verbatim}
-    \begin{verbatim}
-m_add : Maybe Int -> Maybe Int -> Maybe Int
-m_add x y = pure (!x + !y)
-    \end{verbatim}
-  \end{frame}
-  \begin{frame}[fragile]{Idiom brackets}
-    \begin{verbatim}
-m_add : Maybe Int -> Maybe Int -> Maybe Int
-m_add x y = pure (+) <*> x <*> y
-    \end{verbatim}
-    \begin{verbatim}
-m_add : Maybe Int -> Maybe Int -> Maybe Int
-m_add x y = [|x + y|]
-    \end{verbatim}
-  \end{frame}
-  \begin{frame}[fragile]{Multiple implementations of interfaces}
-    \begin{verbatim}
-[PlusNatSemi] Semigroup Nat where
-  x <+> y = x + y
-[MultNatSemi] Semigroup Nat where
-  x <+> y = x * y
-[PlusNatMonoid] Monoid Nat
-  using PlusNatSemi where
-    neutral = 0
-[MultNatMonoid] Monoid Nat
-  using MultNatSemi where
-    neutral = 1
-    \end{verbatim}
-\end{comment}
-    \subsection{Edutamise eelised sõltuvate tüüpide ees}
-      
-\begin{comment}
-  \begin{frame}[fragile]{Why Not Dependent Types?}
-    For many purposes, promotion is sufficient. It is a simple tool that does the job.
-    \begin{itemize}
-      \item
-        Promotion might be easier for programmers to understand.
-      \item
-        Dependent types complicate typechecking.
-      \item
-        Dependent types complicate type inference.
-      \item
-        Dependent types complicate type erasure.
-    \end{itemize}
-  \end{frame}
-\end{comment}
+    \subsection{Edutamise võrdlus sõltuvate tüüpidega}\label{soltuvad}
+      Paljude keelte tüübisüsteemides, sealhulgas Haskelli omas, kehtib \textit{faasierisus} (ing. k. \textit{phase distinction}). Väärtused võivad sõltuda tüüpidest aga mitte vastupidi. Ka edutamise olemasolul jääb faasierisus tegelikult kehtima. Kuigi näiteks vektorite puhul võib tunduda, et vektori tüüp sõltub naturaalarvulisest väärtusest, aga tegelikult on tüübid ja väärtused siiski rangelt eristatud~\cite{Giv}.
+
+      Mõnedes teistes programmeerimiskeeltes, näiteks Agda~\cite{Agd}, Coq~\cite{The_Coq} ja Idris~\cite{The_Idr}, on olemas sõltuvad tüübid. See tähendab, et tüübid võivad sõltuda väärtustest.
+
+      Sõltuvad tüübid, nagu ka edutamine, võimaldavad luua tüübitaseme naturaalarvusid ja liste ning muid tüübitaseme andmeid. Tegu on aga võimsama tööriistaga kui edutamine. Toome mõned lihtsad funktsioonid, mida saab kirjutada kasutades sõltuvaid tüüpe, aga mis ei ole võimalikud ainult andmetüüpide edutamise abil. Tarvitame näidetes Idrise süntaksit, sest see on väga sarnane Haskelli omaga (siinkohal toodud näidetes on ainus erinevus see, et tüübi märkimiseks kasutatakse ühte ja listi konstrueerimiseks kahte semikoolonit).
+
+      Üks lihtne ja kasulik funktsioon, mida edutamine, erinevalt sõltuvatest tüüpidest, ei võimalda kirjutada, on kahe vektori konkateneerimine. Kui me konkateneerime vektoreid pikkusega \verb!m! ja \verb!n!, siis tulemuse pikkus on \verb!m + n!. Tegu on tüübitaseme naturaalarvude liitmisega. Kui edutatakse ainult tüüpe ja konstruktoreid, ei ole tüübitaseme andmetele võimalik rakendada funktsioone.
+
+      \begin{verbatim}cat : Array m t -> Array n t -> Array (m + n) t
+cat Empty_Array b = b
+cat (Construct_Array x a) b = Construct_Array x (cat a b)\end{verbatim}
+
+      Toome siinkohal veel ühe näite sõltuvate tüüpide kasutusest~\cite{The_Idr}, mida ei ole võimalik teostada edutamise abil. Üldistatud algebraline andmetüüp \verb!InElement! võimaldab staatiliselt tõestada, et element esineb listis. \verb!inList! funktsiooni tüüp \verb!InList (5 : Integer) [1, 2, 5]! on teoreem, mis ütleb, et \verb!5! esineb listis \verb![1, 2, 5]!. See, et meil õnnestub vastavat tüüpi funktsioon kirjutada, tõestab tüübis toodud väite.
+
+      \begin{verbatim}data InList : t -> List t -> Type where
+  Here : InList x (x :: l)
+  There : InList x l -> InList x (y :: l)
+inList : InList (5 : Integer) [1, 2, 5]
+inList = There (There Here)\end{verbatim}
+
+      Haskellis \verb!InList! tüüp küll toimib, sest liste on võimalik tüübi tasemele edutada, aga kuna \verb!Integer! ei ole edutatav tüüp, ei ole Haskellis võimalik elemendi leidumise tõestust \verb!Integer! tüüpi täisarvude listi jaoks läbi viia. Veel halvem on olukord juhul, kui tahaksime analoogseid tõestusi läbi viia vektorite peal. Sõltuvate tüüpidega on see võimalik, aga tavaline ühekordne edutamine ei võimalda saavutada tüübitaseme vektoreid. Haskellis ei läbiks järgnev andmetüüp tüübikontrolli.
+
+      \begin{verbatim}data InArray : t -> Array n t -> Type where
+  Here : InArray x (Construct_Array x a)
+  There : InArray x l -> InArray x (Construct_Array y a)\end{verbatim}
+
+      Näeme, et paraku on kasulikke ja üldsegi mitte keerulisi funktsioone, mida edutamine, erinevalt sõltuvatest tüüpidest, ei võimalda kirjutada. Edutamisel on võrreldes sõltuvate tüüpidega siiski ka eeliseid mitte ainult puudusi~\cite{Giv}:
+
+      \begin{itemize}
+        \item
+          Programmeerijatel, kes on harjunud faasierisusega, võib olla lihtsam kohaneda edutamisega kui sõltuvate tüüpidega.
+        \item
+          Sõltuvad tüübid muudavad keerulisemaks tüübikontrolli ja tüübituletuse.
+        \item
+          Faasierisuse puhul on lihtne tüübikontrolli järel kõik tüübid kustutada ning edutamine ei muuda seda. Tüüpide kustutamine sõltuvate tüüpidega keeles on oluliselt keerulisem.
+      \end{itemize}
+
+      Paljude kasutusjuhtude jaoks on edutamine piisav. Edutamine muudab tüübisüsteemi oluliselt võimsamaks ja väljendusrikkamaks, ohverdamata samas lihtsust ja nõudmata programmeerijalt oluliselt teistmoodi tüübisüsteemiga kohanemist.
 \begin{comment}
   \begin{frame}[fragile]{Promotion Without GADT-s?}
     Many GADT-s in the examples have a certain pattern:
@@ -629,18 +446,61 @@ m_add x y = [|x + y|]
   \end{frame}
 \end{comment}
   \peatykk{Süntaks}\label{syntaks}
-    Siinkohal toome ära konkreetse süntaksi formaalse spetsifikatsiooni. Lisaks grammatikate kirja panemiseks kasutatavale püstkriipsule, mis tähistab valikut kahe variandi vahel, on kasutatud ka sümboleid $A^*=\epsilon|AA^*$ ja $A?=\epsilon|A$.
+    Selles peatükis kirjeldame keele Awful süntaksit.
+    \subsection{Süntaksi formaalne spetsifikatsioon}
+    Toome konkreetse süntaksi formaalse spetsifikatsiooni. Lisaks püstkriipsule, mis tähistab valikut kahe variandi vahel, ja tähele $\epsilon$, mis tähistab tühja sõnet, on kasutatud ka sümboleid $A^*=\epsilon|AA^*$ ja $A?=\epsilon|A$.
 
-    Loetavuse huvides on keele elementide tähistused ning süntaksi kirjeldamiseks kasutatav notatsioon tavalises kirjatüübis. Keele võtmesõnad ja sümbolid on helehallis fikseeritud laiusega kirjatüübis. \markus{TODO: otsida siia viide sellele notatsioonile} \markus{TODO: epsilon ei ole sobiv avaldiste jaoks, sest tähistab tühja stringi} \markus{TODO: tüübisüsteemi formaalne spetsifikatsioon? avaldiste semantika?}
+    Käesolev süntaksi spetsifikatsioon ei tegele leksiliste detailidega, nagu tühikud, reavahetused, kommentaarid ning muutujanimede, tähtede ja täisarvude leksiline struktuur. Neid detaile selgitame mitteformaalselt peatüki lõpus jaotistes~\ref{kommentaarid}-\ref{primitiivid}.
+
+    Loetavuse huvides on keele elementide tähistused ning süntaksi kirjeldamiseks kasutatav notatsioon tavalises kirjatüübis. Keele võtmesõnad ja sümbolid on helehallis fikseeritud laiusega kirjatüübis. \markus{TODO: epsilon ei ole sobiv avaldiste jaoks, sest tähistab tühja stringi}
+
+    \begin{equation*}
+      \begin{tabular}{llll}
+        Fail & $P$ & $::=$ & $I^*D^*K^*F^*$
+      \end{tabular}
+    \end{equation*}
+
+    Awful keele fail koosneb imporditavate failide nimekirjast ning andmetüüpide, klasside ja funktsioonide deklaratsioonidest.
+
+    \begin{equation*}
+      \begin{tabular}{llll}
+        Import & $I$ & $::=$ & {\color{helehall}\verb!Load!} $x${\color{helehall}\verb!.awf!}
+      \end{tabular}
+    \end{equation*}
+
+    Tähega \verb!x! tähistame süntaksi spetsifikatsioonis ükskõik millist nime: kas siis faili, tüübi, tüübimuutuja, konstruktori, struktuuri välja, definitsiooni või lokaalse muutuja oma.
+
+    \begin{equation*}
+      \begin{tabular}{llll}
+        Andmetüüp & $D$ & $::=$ & $S|A|G$
+      \end{tabular}
+    \end{equation*}
+
+    Andmetüüp võib olla struktuur, algebraline andmetüüp või hargnev andmetüüp. Hargnevaid andmetüüpe tutvustame alamjaotises~\ref{hargnevad}.
+
+    \begin{equation*}
+      \begin{tabular}{llll}
+        Struktuur & $S$ & $::=$ & {\color{helehall}\verb!Struct!} $xt\phi$
+      \end{tabular}
+    \end{equation*}
+
+    Struktuuri deklaratsioon sisaldab nime, tüübimuutujaid ja väljasid.
+
+    \begin{equation*}
+      \begin{tabular}{llll}
+        Tüübimuutujad & $t$ & $::=$ & $(${\color{helehall}\verb![!}$\tau(${\color{helehall}\verb!,!}$\tau)^*${\color{helehall}\verb!]!}$)?$
+      \end{tabular}
+    \end{equation*}
+
+    
+
+    \begin{equation*}
+      \begin{tabular}{llll}
+        Tüübimuutuja koos liigiga & $\tau$ & $::=$ & $x$ {\color{helehall}\verb!:!} $L$
+      \end{tabular}
+    \end{equation*}
 
     \begin{tabular}{llll}
-      Fail & $P$ & $::=$ & $I^*D^*K^*F^*$ \\
-      Import & $I$ & $::=$ & {\color{helehall}\verb!Load!} $x${\color{helehall}\verb!.awf!} \\
-      Nimi & $x$ &  &  \\
-      Andmetüüp & $D$ & $::=$ & $S|A|G$ \\
-      Struktuur & $S$ & $::=$ & {\color{helehall}\verb!Struct!} $x\tau\phi$ \\
-      Tüübimuutujad & $\tau$ & $::=$ & $(${\color{helehall}\verb![!}$t(${\color{helehall}\verb!,!}$t)^*${\color{helehall}\verb!]!}$)?$ \\
-      Tüübimuutuja koos liigiga & $t$ & $::=$ & $x$ {\color{helehall}\verb!:!} $L$ \\
       Liik & $L$ & $::=$ & $\Lambda$ $\Lambda^*|${\color{helehall}\verb"!"}$?x$ \\
        & $\Lambda$ & $::=$ & {\color{helehall}\verb!(!}$\Lambda$ $\Lambda^*${\color{helehall}\verb!)!}$|${\color{helehall}\verb"!"}$?x$ \\
       Struktuuri väljad / muutujad & $\phi$ & $::=$ & $(${\color{helehall}\verb!(!}$\nu(${\color{helehall}\verb!,!}$\nu)^*${\color{helehall}\verb!)!}$)?$ \\
@@ -656,7 +516,7 @@ m_add x y = [|x + y|]
       Klassi meetod & $\mu$ & $::=$ & $x\tau\kappa$ {\color{helehall}\verb!:!} $L$ \\
       Kitsendused & $\kappa$ & $::=$ & $(${\color{helehall}\verb!<!}$k(${\color{helehall}\verb!,!}$k)^*${\color{helehall}\verb!>!}$)?$ \\
       Kitsendus & $k$ & $::=$ & $x$ $x$ \\
-      Definitsioon / instants & $F$ & $::=$ & $\delta|i$ \\
+      Definitsioon / esindaja & $F$ & $::=$ & $\delta|i$ \\
       Definitsioon & $\delta$ & $::=$ &  \\
       Avaldis & $E$ & $::=$ & {\color{helehall}\verb!"!}$c${\color{helehall}\verb!"!}$|\lambda|i|M|x$ \\
          & $e$ & $::=$ & {\color{helehall}\verb!"!}$c${\color{helehall}\verb!"!}$|${\color{helehall}\verb!(!}$\lambda${\color{helehall}\verb!)!}$i|${\color{helehall}\verb!(!}$M${\color{helehall}\verb!)!}$|x$ \\
@@ -665,7 +525,7 @@ m_add x y = [|x + y|]
       Lambda & $\lambda$ & $::=$ & $x$ {\color{helehall}\verb!->!} $E$ \\
       Täisarv & $i$ &  &  \\
       Mustrisobitus & $M$ & $::=$ &  \\
-      Instants & $i$ & $::=$ &  \\
+      Esindaja & $i$ & $::=$ &  \\
     \end{tabular}
 \begin{comment}
   data Brnch_0 = Brnch_0 Name [Name] Name [(Name, Type_0)] deriving Show
@@ -685,24 +545,31 @@ m_add x y = [|x + y|]
     Matches_Int_0 [Match_Int_0] Expression_0
       deriving Show
 \end{comment}
-    Süntaks ei ole taandetundlik. Antud otsuse põhjuseks oli parseri teostuse lihtsus, aga ka soov anda kasutajale rohkem vabadust selle osas, kuidas koodi paigutada. Lisaks vähendab mitte-taandetundlikkus parsimisvigade ohtu suuremate kooditükkide kopeerimisel ühest kohast teise. Peamiseks puuduseks on liigsed sulud ja eraldajad (näiteks \verb!Match! avaldises), mida taandetundlik süntaks oleks aidanud vältida.
-
-    Keel on tõstutundlik. Erinevalt Haskellist ei ole piiratud, mis nimed peavad algama suur- ja millised väiketähega. Failid, tüübid, tüübimuutujad, konstruktorid, struktuuride väljad, definitsioonide nimed ja lokaalsed muutujad võivad kõik alata kas suur- või väiketähega vastavalt kasutaja soovile. Nimedes on ASCII sümbolitest lubatud ülakoma, numbrid (välja arvatud esimeses positsioonis), tähed ja alakriips. Lubatud on ka mitte-ASCII sümbolid, näiteks täpitähed. Üksik alakriips on, nagu ka Haskellis, mõeldud nimetamata muutujate jaoks.
-
-    Tähtede (\verb!Char!) ümber käivad topeltjutumärgid (näiteks \verb#"!"#).
-  \peatykk{Keele kirjeldus}\label{manual}
-    Awful on deklaratiivne, puhasfunktsionaalne keel. Kuna töö põhieesmärgiks oli tüübisüsteemi arendamine, sai kirjutatud ainult interpretaator ning kompileerimise võimalust ei ole. Erinevalt Haskellist on Awful agara väärtustamisega.
-
-    \markus{TODO: 1) rohkem näiteid 2) põhjendada disainivalikuid}
-    \subsection{Kommentaarid}
+    Süntaks ei ole taandetundlik. Antud otsuse põhjuseks oli parseri teostuse lihtsus, aga ka soov anda kasutajale vabadus koodi paigutuses. Lisaks vähendab mitte-taandetundlikkus parsimisvigade ohtu suuremate kooditükkide kopeerimisel ühest kohast teise. Antud otsuse peamiseks puuduseks on liigsed sulud ja eraldajad (näiteks \verb!Match! avaldises), mida taandetundlik süntaks oleks aidanud vältida.
+    \subsection{Kommentaarid}\label{kommentaarid}
       Kommentaaride süsteem on sarnane Haskellile ja C keelele, selle vahega, et kasutatakse teistsuguseid sümboleid. Üherealist kommentaari alustatakse graavise sümboliga.
 
       \begin{verbatim}Def Id[T : Star](x : T) : T = T `Ühikfunktsioon\end{verbatim}
 
-      Mitmerealist kommentaari alustatakse lainelise joone ja kaldkriipsuga, ning lõpetatakse kaldkriipsu ja lainelise joonega. Nagu ka Haskellis, võib neid teineteise sisse paigutada.
+      Mitmerealist kommentaari alustatakse lainelise joone ja kaldkriipsuga, ning lõpetatakse kaldkriipsu ja lainelise joonega. Nagu ka Haskellis, võib mitmerealisi kommentaare teineteise sisse paigutada.
 
-      \begin{verbatim}~/ Awful on puhasfunktsionaalne interpreteeritud agar keel. /~\end{verbatim}
+      \begin{verbatim}~/ Awful on funktsionaalne keel. /~\end{verbatim}
+    \subsection{Muutujanimed}
+      Keel on tõstutundlik. Erinevalt Haskellist ei ole piiratud, mis nimed peavad algama suur- ja millised väiketähega. Failid, tüübid, tüübimuutujad, konstruktorid, struktuuride väljad, definitsioonide nimed ja lokaalsed muutujad võivad kõik alata kas suur- või väiketähega vastavalt kasutaja soovile.
 
+      Nimedes on lubatud ülakoma, numbrid (välja arvatud esimeses positsioonis), ladina tähed ja alakriips. ASCII standardis mitte esinevad sümbolid ei ole nimedes lubatud, küll aga tohib neid kasutada kommentaarides.
+
+      Üksik alakriips tähistab, nagu ka Haskellis, nimetamata muutujat.
+    \subsection{Primitiivid}\label{primitiivid}
+      Tähtede (\verb!Char!) ümber käivad topeltjutumärgid (näiteks \verb#"!"#). Täisarvude süntaks on identne Haskelli omaga.
+  \peatykk{Keele kirjeldus ja näited}\label{manual}
+    \markus{kusagil kirjeldada sisse ehitatud liike ja tüüpe ja nende otstarvet} Awful on deklaratiivne, puhas, funktsionaalne keel.
+
+    Kuna töö teemaks oli tüübisüsteemi arendamine mitte kompileerimisega seotud problemaatika, sai kirjutatud ainult interpretaator ning kompileerimise võimalust ei ole. Tüübisüsteem on siiski staatiline: koodifaile on võimalik tüübikontrollida ka ilma interpretaatorit käivitamata ning tüükontroll toimub enne interpreteerimist mitte selle käigus.
+
+    Erinevalt Haskellist on Awful agara väärtustamisega.
+
+    \markus{TODO: 1) rohkem näiteid 2) põhjendada disainivalikuid}
     \subsection{Moodulid ja importimine}
       Kõik Awful koodifailid lõpevad laiendiga \verb!.awf!. Awful'is on olemas lihtne moodulite süsteem. Mooduleid saab importida kasutades võtmesõna \verb!Load!. Impordid peavad olema faili alguses ja nende järjekord ei ole oluline.
 
@@ -710,10 +577,12 @@ m_add x y = [|x + y|]
 Load Standard.awf\end{verbatim}
 
       Nimekonfliktide tuvastamise teostuse lihtsuse huvides ei ole lubatud, et kahes erinevas moodulis oleks mõni ühine muutujanimi, isegi juhul kui tegelikku võimalust nimekonfliktiks ei ole.
-    \subsection{Andmetüübid}
-      Haskellis on kaks viisi uusi andmetüüpe luua: tavalised algebralised andmetüübid ja üldistatud algebralised andmetüübid. Awful keele lähenemine andmetüüpidele on teistsugune. Keel pakub kasutajale kolme erinevat viisi uusi andmetüüpe luua: struktuurid, algebralised andmetüübid ja hargnevad andmetüübid. Ükski neist ei ole teisega asendatav, kõigil on erinev otstarve.
+    \subsection{Liigid ja andmetüübid}
+      Haskellis on kaks viisi uusi andmetüüpe luua: tavalised algebralised andmetüübid ja üldistatud algebralised andmetüübid. Keele Awful lähenemine andmetüüpidele on teistsugune. Keel pakub kasutajale kolme erinevat viisi uusi andmetüüpe luua: struktuurid, algebralised andmetüübid ja hargnevad andmetüübid. Ükski neist ei ole teisega asendatav, kõigil on erinev otstarve.
 
       Awful nõuab, et andmetüübid oleks deklareeritud enne klasse ja definitsioone. Andmetüüpide deklaratsioonide omavaheline järjekord ei ole aga oluline isegi kui nende vahel on sõltuvusi.
+      \subsubsection{Liigid}
+        \markus{siin mainida uuesti edutamist; mainida mis liigid on keelde sisse ehitatud - Star ja Arrow; viidata osale mis räägib edutamisest}
       \subsubsection{Struktuurid}
         Struktuurid on mõeldud andmetüüpide jaoks, millel on täpselt üks konstruktor. Konstruktori nimi ühtib tüübi nimega automaatselt. Erinevalt Haskellist on kohustuslik kirja panna struktuuri väljade nimed.
 
@@ -727,15 +596,17 @@ Load Standard.awf\end{verbatim}
         Algebralised andmetüübid on sarnased Haskelli omadega, selle vahega, et kasutajalt nõutakse vähemalt kahte konstruktorit. Juhul, kui kasutaja tahab kirjutada ühe konstruktoriga andmetüüpi, on selleks struktuurid.
 
         Kuna algebraliste andmetüüpide puhul on andmetel kaks või enam erinevat kuju, ei ole nende jaoks võimalust spetsifitseerida väljade nimesid. Kui struktuurist saab andmed kätte väljade nimede abil, siis algebraliste andmetüüpide jaoks tuleb kasutada mustrisobituse avaldist, mida on kirjeldatud alamjaotises~\ref{match}.
-      \subsubsection{Hargnevad andmetüübid}
+      \subsubsection{Hargnevad andmetüübid}\label{hargnevad}
         \markus{Kirjutada võrdlus GADT-ga. Mis on eelised ja mis on puudused?}
       \subsubsection{Keelde sisse ehitatud andmetüübid}\label{sisseehitatudalgebralised}
-        Lisaks tähtedele (\verb!Char!), funktsioonidele (\verb!Function!) ja täisarvudele (\verb!Int!) on Awful keeles ka ilma standardteeki importimata saadaval järgmised andmetüübid:
+        Lisaks tähtedele (\verb!Char!), funktsioonidele (\verb!Function!) ja piiramata suurusega täisarvudele (\verb!Int!) on keeles Awful ka ilma standardteeki importimata saadaval järgmised andmetüübid:
 
         \begin{verbatim}Algebraic Comparison(LT, EQ, GT)
 Algebraic List[T : Star](Empty_List, Construct_List(T, List T))
 Algebraic Maybe[T : Star](Nothing, Wrap(T))
 Algebraic Nat(Zr, Next(Nat))\end{verbatim}
+
+        Väiksem-võrdne-suurem võrdlustulemuse tüüp \verb!Comparison! on keelde sisse ehitatud, sest keelde on sisse ehitatud ka primitiivide (tähtede ja täisarvude) võrdlus. \verb!List! on keelde sisse ehitatud põhjusel, et keelde on sisse ehitatud täisarvude teisendamine stringideks. \verb!Maybe! on lisatud sisse ehitatud klassi \verb!Field! (korpus) jaoks, sest pöördelemendi tehte tulemus antakse \verb!Maybe! monaadi all, kuna kõik korpused peale triviaalse sisaldavad mittepööratavaid elemente. Naturaalarvude tüüp \verb!Nat! on lisatud, sest tulevikus on kavas lisada keelde kolmandaks primitiiviks jäägiklassikorpused, mis nõuavad tüübitaseme naturaalarvusid.
 
         Kuna kõik need andmetüübid on edutatavad, kaasneb nendega ka vastavate edutamise teel saadud liikide ja tüüpide kasutamise võimalus.
     \subsection{Tüübiklassid}
@@ -744,9 +615,11 @@ Algebraic Nat(Zr, Next(Nat))\end{verbatim}
       \begin{verbatim}Class Functor{F : Arrow Star Star}(
   Fmap[T : Star, U : Star] : Function (Function T U) (Function (F T) (F U)))\end{verbatim}
 
-      Vahel on kasulikud ka ilma meetoditeta klassid. Sisuliselt on tegu predikaatidega tüüpide peal ja nad on kasulikud kirjeldamaks tüüpide omadusi. Üks lihtne näide on klass \verb!Commutative!, mille instantsi saab kasutada märkimaks, et tüüp, mis on ring, on lisaks teatud tingimustel kommutatiivne.
+      Vahel on kasulikud ka ilma meetoditeta klassid. Sisuliselt on tegu predikaatidega tüüpide peal ja nad on kasulikud kirjeldamaks tüüpide omadusi. Üks lihtne näide on klass \verb!Commutative!, mille esindajat saab kirjutada märkimaks, et tüüp, mis on ring, on lisaks teatud tingimustel kommutatiivne.
 
       \begin{verbatim}Class Commutative{T : Star}<Ring>\end{verbatim}
+
+      Siinkohal tasub märkida, et täpselt nagu ka teiste klassidega, ei kontrollita selliste predikaatide puhul kasutaja kirjutatud klassiesindajate vastavust nõutud kitsendustele. Awful ei ole tõestusassistent ega paku võimalusi selliste omaduste tõestamiseks.
       \subsubsection{Pärilus}
         Magistritöö skoobi piiratuse tõttu võimaldab Awful ainult ühest pärilust. Seda, et üks klass pärib teist, märgitakse nurksulgude abil:
 
@@ -769,7 +642,7 @@ Algebraic Nat(Zr, Next(Nat))\end{verbatim}
     Function (F N T) (Function (Array N T) (Array N T)),
   Vector_by_matrix[N : !Nat, T : Star]<Ring T> :
     Function (Array N T) (Function (F N T) (Array N T)))\end{verbatim}
-      \subsubsection{Keelde sisseehitatud klassid}\label{klassmaatriks}
+      \subsubsection{Keelde sisse ehitatud klassid}\label{klassmaatriks}
         Neli klassi on saadaval ka ilma standardteeki importimata:
 
         \begin{verbatim}Class Field{T : Star}<Ring>(Inverse : Function T (Maybe T))
@@ -783,47 +656,51 @@ Class Writeable{T : Star}(
   Brackets : Function T (List Char),
   Write : Function T (List Char))\end{verbatim}
 
-        Klass \verb!Ord! on sarnane Haskelli samanimelise klassiga, selle vahega, et Awful'is ei ole klassi \verb!Eq!.
+        Klass \verb!Ord! on sarnane Haskelli samanimelise klassiga, selle vahega, et Awful'is ei ole klassi \verb!Eq!. See on keelde sisse ehitatud primitiivide võrdluse jaoks.
 
-        Klass \verb!Writeable! on mõeldud andmestruktuuride stringideks teisendamiseks meetodi \verb!Write! abil; \verb!Brackets! on abimeetod, mis paneb avaldise sulgudesse välja arvatud juhul kui tegu on üksiku konstandiga.
+        Klass \verb!Writeable! on mõeldud andmestruktuuride stringideks teisendamiseks meetodi \verb!Write! abil; \verb!Brackets! on abimeetod, mis paneb avaldise sulgudesse välja arvatud juhul kui tegu on üksiku konstandiga. Tulevikus on plaanis selle klassi abil teostada interpreteerimise tulemuste kuvamine kasutajasõbralikumal kujul kui praegu.
 
-        Klassid \verb!Ring! ja \verb!Field! on tuttavad algebrast: tegu on lihtsalt (mitte tingimata kommutatiivse) ringi ja korpusega. Klassi \verb!Ring! meetod \verb!Convert!, mis teisendab täisarvu ringi elemendiks, on mõeldud defineerimaks nulli (\verb!Convert 0!) ja ühikut (\verb!Convert 1!), aga ka selleks, et oleks mugav suvalises ringis elementi täisarvulise konstandiga korrutada.
-    \subsection{Keelde sisseehitatud definitsioonid ja instantsid}
-      Lisaks alamjaotises~\ref{sisseehitatudalgebralised} loetletud algebraliste andmetüüpide konstruktoritele, on ilma standardteeki importimata võimalik kasutada järgmisi keelde sisseehitatud muutujaid ja instantse:
+        Klassid \verb!Ring! ja \verb!Field! on tuttavad algebrast: tegu on lihtsalt (mitte tingimata kommutatiivse) ringi ja korpusega. Klassi \verb!Ring! meetod \verb!Convert!, mis teisendab täisarvu ringi elemendiks, on mõeldud defineerimaks nulli (\verb!Convert 0!) ja ühikut (\verb!Convert 1!), aga ka selleks, et oleks mugav suvalises ringis elementi täisarvulise konstandiga korrutada. Klass \verb!Ring! on keelde sisse ehitatud täisarvuliste tehete jaoks. Klass \verb!Field! on lisatud, pidades silmas seda, et tulevikus on plaanis teostada jäägiklassikorpuste primitiiv koos kõigi aritmeetikatehetega, sealhulgas pöördelemendi leidmine.
+    \subsection{Keelde sisse ehitatud definitsioonid ja esindajad}
+      Lisaks alamjaotises~\ref{sisseehitatudalgebralised} loetletud algebraliste andmetüüpide konstruktoritele, on ilma standardteeki importimata võimalik kasutada järgmisi keelde sisse ehitatud muutujaid ja esindajaid:
       \subsubsection{Ühikfunktsioon}
-        Keelde on sisse ehitatud ühikfunktsioon.
+        Ilma standardteeki importimata on saadaval ühikfunktsioon.
 
         \begin{verbatim}Def Id[T : Star](x : T) : T = x\end{verbatim}
+
+        Põhjuseks on see, et keelde on sisse ehitatud klassi \verb!Ring! esindaja täisarvude jaoks. Klass \verb!Ring! sisaldab muuhulgas meetodit \verb!Convert!, mis teisendab täisarvu ringi elemendiks. Täisarvude ringi korral on meetod \verb!Convert! ekvivalentne ühikfunktsiooniga, mistõttu ongi ühikfunktsioon keelde sisse ehitatud.
       \subsubsection{Täisarvude võrdlus ja aritmeetika}
-        Keelde on sisse ehitatud klasside \verb!Ord! ja \verb!Ring! instantsid täisarvude jaoks. Lisaks on olemas ka funktsioonid \verb!Div! ja \verb!Mod!, mis annavad vastavalt täisarvulise jagamise jagatise ja jäägi. Turvalisuse huvides on mõlema funktsiooni tulemus \verb!Maybe! all juhuks kui jagaja on null.
+        Keelde on sisse ehitatud klasside \verb!Ord! ja \verb!Ring! esindajad täisarvude jaoks. Lisaks on olemas ka funktsioonid \verb!Div! ja \verb!Mod!, mis annavad vastavalt täisarvulise jagamise jagatise ja jäägi. Turvalisuse huvides on mõlema funktsiooni tulemus \verb!Maybe! all juhuks kui jagaja on null.
       \subsubsection{Tähtede võrdlus}
-        Keelde on sisse ehitatud klassi \verb!Ord! instants tähtede jaoks.
+        Keelde on sisse ehitatud klassi \verb!Ord! esindaja tähtede jaoks.
       \subsubsection{Täisarvude stringiks teisendamine}
-        Keelde on sisse ehitatud klassi \verb!Writeable! instants täisarvude jaoks.
+        Keelde on sisse ehitatud klassi \verb!Writeable! esindaja täisarvude jaoks.
       \subsubsection{Defineerimata käitumine}
         Defineerimata käitumist saab märkida erilise muutuja abil, mille nimi on \verb!Crash!. \verb!Crash! on sarnane Haskelli \verb!undefined! muutujaga selle poolest, et mõlemad on parameetriliselt polümorfsed üle suvalise tüübi liigist \verb!*!, selleks et neid saaks panna suvalisse kohta veel kirjutamata kooditüki asenduseks, või luua funktsioone mille käitumine ongi osade argumendiväärtuste korral defineerimata.
 
         Käitumine väärtustamisel on aga erinev selle tõttu, et Haskell on laisk ja Awful on agar keel. Näiteks Haskelli avaldis \verb!fst (0, undefined)! annab \verb!0!, aga Awfuli analoogne avaldis \verb!First (Pair 0 Crash)! resulteerub tulemuses \verb!Crash!.
-    \subsection{Definitsioonid ja instantsid}
+    \subsection{Definitsioonid ja esindajad}
       \markus{TODO}
       \subsubsection{Definitsioonid}
         
-      \subsubsection{Instantsid}
+      \subsubsection{Esindajad}
         
     \subsection{Avaldised}
       \markus{TODO: tekst}
       \subsubsection{Lambda-avaldised}
-        Funktsionaalse programmeerimiskeelena sisaldab Awful loomulikult lambda-avaldisi. Süntaks on sarnane Haskelli omaga, selle vahega, et kuna mustrisobituse võimalust funktsiooni argumentides ei ole veel teostatud, ei ole vajalik \verb!\! sümbol enne muutujanime.
+        Funktsionaalse programmeerimiskeelena sisaldab Awful loomulikult lambda-avaldisi. Mustrisobituse võimalust funktsiooni argumentides ei ole veel teostatud, aga seda on tulevikus plaanis lisada. Süntaks on sarnane Haskelli omaga, selle vahega, et ei ole vajalik \verb!\! sümbol enne muutujanime. Toome siinkohal näite lambda-avaldist kasutavast funktsioonist.
 
         \begin{verbatim}Def Multiply_right[F : Arrow Star Star, T : Star]<Functor F, Ring T>
   (x : F T, y : T) : F T =
     Fmap (z -> Multiply z y) x\end{verbatim}
+
+        Seda funktsiooni saab kasutada korrutamaks paremalt konstandiga liste, vektoreid, maatrikseid ja teisi funktoreid.
       \subsubsection{Mustrisobitus}\label{match}
         Mustrisobitus töötab tähtede, täisarvude ja algebraliste andmetüüpide peal.
 
         \begin{verbatim}Def Not(x : Logical) : Logical = Match x {False -> True, True -> False}\end{verbatim}
 
-        Saab kirjutada ka \verb!Default! juhu, mida kasutatakse, kui ükski eelnev variant ei sobinud.
+        Saab kirjutada ka \verb!Default! juhu, mida kasutatakse, kui ükski eelnev variant ei sobinud. See vaikevalik tuleb alati kirjutada mustrisobituse viimaseks juhuks.
 
         \begin{verbatim}Def Max[T : Star]<Ord T>(x : T, y : T) : T =
   Match Compare x y {LT -> y, Default -> x}\end{verbatim}
@@ -838,7 +715,7 @@ Class Writeable{T : Star}(
     \subsection{Teegid}
       
       \subsubsection{Standardteek}
-        
+        Standardteeki ei ole kohustuslik importida.
       \subsubsection{Algebrateek}
         
     \subsection{Interpretaatori kompileerimine ja kasutajaliides}
@@ -856,9 +733,9 @@ Class Writeable{T : Star}(
 
       \begin{verbatim}./Awful eval Standard.awf Algebra.awf "Pair Trivial (Complex 0 0)"\end{verbatim}
 
-      Tulemus väljastatakse otse niiviisi, kuidas avaldised on väärtustajas sisemiselt esitatud. Tulemuste ilusal kujul väljastamine on plaanis teostada tulevikus.
+      Tulemus väljastatakse otse niiviisi, kuidas avaldised on väärtustajas sisemiselt esitatud. Tulemuste kasutajasõbralikumal kujul väljastamine on plaanis teostada tulevikus.
   \peatykk{Teostuse detailid}
-    Awful keele interpretaator on üsna interpretaatori jaoks üsna tüüpilise arhitektuuriga, koosnedes lekserist, parserist, nimekontollijast, tüübikontrollijast ja väärtustajast. Lisaks on eraldi moodul, mis vastutab kasutajaliidese ja moodulisüsteemi eest. \markus{mis klasse, teeke jne kasutan?}
+    Keele Awful interpretaator on interpretaatori jaoks võrdlemisi tüüpilise arhitektuuriga, koosnedes lekserist, parserist, nimekontollijast, tüübikontrollijast ja väärtustajast. Lisaks on eraldi moodul, mis vastutab kasutajaliidese ja moodulisüsteemi eest. \markus{mis klasse, teeke jne kasutan?}
     \subsection{Parser}
       \markus{kirjutada Alternative klassi kohta, mida kasutan parsimiseks}
       \subsubsection{Aplikatiivne parsimine}
@@ -866,15 +743,15 @@ Class Writeable{T : Star}(
       \subsubsection{Monaadiline parsimine}
         
     \subsection{Tüübikontroll}
-      Awful võimaldab andmetüüpe, klasse ning definitsioone ja instantse kirjutada ükskõik millises järjekorras, olenemata nende omavahelistest sõltuvustest. Selle tõttu läbib tüübikontrollija nii andmetüübid, klassid kui ka definitsioonid ja instantsid kaks korda.
+      Awful võimaldab andmetüüpe, klasse ning definitsioone ja esindajaid kirjutada ükskõik millises järjekorras, olenemata nende omavahelistest sõltuvustest. Selle tõttu läbib tüübikontrollija nii andmetüübid, klassid kui ka definitsioonid ja esindajad kaks korda.
       \subsubsection{Andmetüübid}
         
       \subsubsection{Klassid}
         
-      \subsubsection{Definitsioonid ja instantsid}
+      \subsubsection{Definitsioonid ja esindajad}
         
     \subsection{Väärtustamine}
-      Awful keele väärtustaja kasutab avaldisi, mille küljes ei ole tüübiinfot.
+      Väärtustaja kasutab avaldisi, mille küljes ei ole tüübiinfot.
 \begin{comment}
     Add_Int_expression_2 |
     Add_Int'_expression_2 Integer |
@@ -890,7 +767,7 @@ Class Writeable{T : Star}(
       \subsubsection{Algebralised andmetüübid}
         Algebralise andmetüübi esitus väärtustajas on list väljade sisust, millele on lisatud konstruktori nimi. Konstruktori nimi on algebraliste andmetüüpide puhul erinevalt struktuurist vajalik, sest seda kasutatakse mustrisobitusel õige haru leidmiseks.
       \subsubsection{Defineerimata käitumine}
-        Muutuja \verb!Crash! on keelde sisseehitatud muutuja, mis esineb tüüpimiskeskkonnas, aga seda ei ole lisatud väärtustamiskeskkonda. Väärtustaja annab tulemuse \verb!Maybe! monaadi all, ning kui muutuja väärtustamiskeskkonnast leidmine ebaõnnestub (mis võib juhtuda ainult muutuja \verb!Crash! korral), antakse tulemuseks \verb!Nothing! ja kasutajale kuvatakse, et väärtustamise lõpptulemuseks oli \verb!Crash!.
+        Muutuja \verb!Crash! on keelde sisse ehitatud muutuja, mis esineb tüüpimiskeskkonnas, aga seda ei ole lisatud väärtustamiskeskkonda. Väärtustaja annab tulemuse \verb!Maybe! monaadi all, ning kui muutuja väärtustamiskeskkonnast leidmine ebaõnnestub (mis võib juhtuda ainult muutuja \verb!Crash! korral), antakse tulemuseks \verb!Nothing! ja kasutajale kuvatakse, et väärtustamise lõpptulemuseks oli \verb!Crash!.
       \subsubsection{Struktuuri väljade leidmine}
         
       \subsubsection{Mustrisobitus}
@@ -907,7 +784,7 @@ Class Writeable{T : Star}(
     \subsection{Klass kui alamliik}
       
     \subsection{Kasutusmugavus}
-      Magistritöö mahu tõttu keskendus töö tüübiklasside ja edutamise arendamisele ning töö skoobist jäid välja mõned väikesed, keele võimalusi otseselt mitte laiendavad, aga kasutusmugavuse seisukohast olulised aspektid. Need on plaanis tulevikus teostada, et muuta keeles kirjutatud kood loetavamaks ja kasutajasõbralikumaks.
+      \markus{let-avaldis} Magistritöö mahu tõttu keskendus töö tüübiklasside ja edutamise arendamisele ning töö skoobist jäid välja mõned väikesed, keele võimalusi otseselt mitte laiendavad, aga kasutusmugavuse seisukohast olulised aspektid. Need on plaanis tulevikus teostada, et muuta keeles kirjutatud kood loetavamaks ja kasutajasõbralikumaks.
       \begin{itemize}
         \item
           Võimaldada eksplitsiitset tüübirakendamist, et säästa kasutajale liigsete abi-definitsioonide tegemise vaeva
@@ -926,6 +803,63 @@ Class Writeable{T : Star}(
       \markus{Tüübiklassihäki eemaldamine}
     \subsection{Süntaksi kasutajapoolsete täienduste võimalus}
       
+    \subsection{Jäägiklassikorpuste primitiiv}
+      
+\begin{comment}
+operators
+type operators (minimally for functions, either, pair).
+abstract methods
+move duplicate instance control into Naming module?
+if-elif-else?
+Class Test{T : Star} -> Class Test{_ : Star}
+eta reduction warnings
+unused type variable warnings
+unused local variable warnings
+add something for easily changing fields of structs?
+internal: do something with old/new status tags. check where exactly they're necessary. get rid of them where they're useless
+change semantics of missing pattern-match variables from blank to lambda? (Left -> e is not Left _ -> e but Left x -> e x)
+internal: make the system of specifying built-in algebraic data types and things better and safer
+Allow hiding things to functions outside module - so that helper functions are not exported from the module
+normalising constructors for some data types (polynomial, fraction) which assume a certain normal form of fields?
+allow to hide (prevent exporting) constructors and field accessors which can potentially have bad behavior
+internal: remove locations from expressions except from lowest-level things where some checks are necessary (name)?
+switch expression that is less strict and more flexible than match?
+some limited pattern matching in function arguments (and maybe also variables introduced through algebraic matching?)
+syntactic sugar for lists, vectors, matrices... allow writing (tiny, limited to expression parsing) language extensions?
+fix the show-read issue; give a specific error for that (different errors for unresolved type variable and missing constr)
+basic IO operations (output to console, read file, write file, append to file)
+implement map and set (AVL trees?)
+make match work with finite and char
+different ways of folding lists, vectors, sets, maps etc
+gather naming and type errors and give a list instead of returning only the first one?
+enrich kind system via promotion
+make match work with chars
+make promotion for built-in ADT-s automatic
+modify parser: make promotion of ints and chars to type level explicit (with !)
+simplify hyperkind system because there's no need to keep anything but the number of arguments
+modify flexible type variable name generation. use just numbers for everything? ("T0" - maybe name conflict with userdefined)
+module system related functions into a separate file?
+more detailed type errors (write which two types clashed)
+type clash location?
+write in error why exactly you need a class constraint (which name of a function caused it)?
+write in error where the need for class constraint occurred?
+make command line arguments nicer
+check for free type variables after typechecking an expression. throw an error (they are a problem with type classes!)
+remove promotion of primitives? it seems that without GADT-s they are pointless?
+prettyprint evaluation results
+case reduction warning (case x of c1 -> f y, c2 -> g y on sama mis (case x of c1 -> f, c2 -> g) y)
+mis juhtub kui esimeses moodulis on kusagil tüübimuutuja T ja järgmises moodulis sama nimega globaalne tüüp?
+mis juhtub kui meil on 2 klassi millel on vastastikune pärilussuhe? ega tüübikontroll tsüklisse ei jookse?
+mis juhtub kui on klassid A, B<A> ja C<A> ja siis mingi funktsioon saab kitsendusteks B ja C
+mis juhtub sellisel juhul: Class Foo{T : Star}(foo<Ring T> : T = Zero)
+mis juhtub kui on selline pärilussuhe, et A eeldab A-d????
+liigirakendamise eemaldamine liigituletuse kasuks (igal pool? teatud piiratud juhtudel?)
+käskida kasutajal klasse kirjutada päriluse järjekorras? (väldiks ring-päriluse probleemi, võimaldaks klassid teha 1 passis)
+kas tüübirakendamist on kusagil vaja?
+Funktsioon mis leiab enniku pikkuse valesti (rekursioon kutsutakse välja sama pika või 1 võrra pikema peal) - mis juhtub?
+char-i kirjutamine keelest ära võtta ja standardteeki panna
+võimaldada suvalise arvu konstruktoritega algebralisi andmetüüpe. (LISAKS struktide allesjätmisele?)
+\end{comment}
   \peatykk{Kokkuvõte}
     \markus{what did you do?}
 
